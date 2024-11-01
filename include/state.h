@@ -18,6 +18,13 @@ exit(EXIT_FAILURE);
 fclose(file);
 }
 
+void strip_newlines(char* input,char* return_buffer){
+size_t length=strlen(input);
+memcpy(return_buffer,input,length+1);
+char* newline=strpbrk(return_buffer,"\n\r");
+if(newline!=NULL){*newline='\0';}
+}
+
 void set_value(const char* key,const char* value){
 char line[PARAMETER_SIZE];
 FILE* file=fopen(STATE_FILE,"r");
@@ -43,7 +50,7 @@ fclose(file);
 fclose(alt_state);
 remove(STATE_FILE);
 rename("alt_state",STATE_FILE);
-printf("\nset: %s = %s\n",key,value);
+if(FEEDBACK==1){printf("\nset: %s = %s\n",key,value);}
 }
 void manage_data(const char* command,const char* key,const char* value,char* state_buffer){
 if(strcmp(command,"set")==0){
@@ -65,7 +72,7 @@ memcpy(state_buffer,token,strlen(token)+1);
 state_buffer[0]='\0';
 }
 fclose(file);
-printf("\nget: %s = %s\n",key,token?token:"value not found");
+if(FEEDBACK==1){printf("\nget: %s = %s\n",key,token?token:"value not found");}
 return;
 }
 }
@@ -77,12 +84,13 @@ printf("invalid command: %s\n",command);
 }
 
 int process_state_parameters(char* f_parameters[],char* state_buffer){
-printf("char* f_parameters[] %s %s %s\n",f_parameters[0],f_parameters[1],f_parameters[2]);
+if(FEEDBACK==1){printf("char* f_parameters[] %s %s %s\n",f_parameters[0],f_parameters[1],f_parameters[2]);}
 create_state_file();
 if(strcmp(f_parameters[0],"set")==0){
 manage_data(f_parameters[0],f_parameters[1],f_parameters[2],state_buffer);}
 else if(strcmp(f_parameters[0],"get")==0){
 manage_data(f_parameters[0],f_parameters[1],f_parameters[2],state_buffer);
+strip_newlines(state_buffer,state_buffer);
 }
 else{
 printf("invalid command or parameters.\n");
@@ -91,6 +99,18 @@ printf("  %s <set/get> <key> [value]\n",f_parameters[0]);
 return 0;
 }
 
-// process_state_parameters(f_number_of_parameters,f_parameters);
-
-// f_parameters ==== <set/get> <key> [value]
+int static_process_state_parameters(const char* f_parameters_0,const char* f_parameters_1,const char* f_parameters_2,char* state_buffer){
+if(FEEDBACK==1){printf("char* f_parameters[] %s %s %s\n",f_parameters_0,f_parameters_1,f_parameters_2);}
+create_state_file();
+if(strcmp(f_parameters_0,"set")==0){
+manage_data(f_parameters_0,f_parameters_1,f_parameters_2,state_buffer);}
+else if(strcmp(f_parameters_0,"get")==0){
+manage_data(f_parameters_0,f_parameters_1,f_parameters_2,state_buffer);
+strip_newlines(state_buffer,state_buffer);
+}
+else{
+printf("invalid command or parameters.\n");
+printf("  %s <set/get> <key> [value]\n",f_parameters_0);
+}
+return 0;
+}

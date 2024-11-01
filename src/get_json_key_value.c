@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../include/state.h"
+
 void trim_quotes(char* str){
 size_t len=strlen(str);
 if(len>0 && str[0]=='"'){
@@ -23,7 +25,20 @@ if(number_of_parameters!=3){
 fprintf(stderr,"  %s <json_file> <key>\n",parameters[0]);
 return EXIT_FAILURE;
 }
-const char* json_file=parameters[1];
+
+char state_buffer[PARAMETER_SIZE];
+state_buffer[0]=(void*)0;
+char state_parameters_0[PARAMETER_SIZE]="get";
+char state_parameters_1[PARAMETER_SIZE]="level_zero";
+char state_parameters_2[PARAMETER_SIZE];
+state_parameters_2[0]=(void*)0;
+static_process_state_parameters(state_parameters_0,state_parameters_1,state_parameters_2,state_buffer);
+if(FEEDBACK==1){printf("\nstate_buffer: %s\n",state_buffer);}
+strcat(state_buffer,"/");
+strcat(state_buffer,parameters[1]);
+
+const char* json_file=state_buffer;
+if(FEEDBACK==1){printf("\n json_file: !%s!\n",json_file);}
 const char* target_key=parameters[2];
 FILE* file=fopen(json_file,"r");
 if(!file){

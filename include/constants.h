@@ -2,6 +2,7 @@
 // mnh_license@proton.me
 // https://github.com/hartmanm
 
+#define FEEDBACK 0
 #define STATE_FILE "state"
 #define MAX_LINE_LENGTH 1024
 #define DIRECTORY_SIZE 512
