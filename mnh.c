@@ -54,29 +54,24 @@ free(command);
 int main(int number_of_parameters,char* parameters[]){
 if(number_of_parameters<2){fprintf(stderr,"  %s <exec_path> <param1> [<param2> ...]\n",parameters[0]);return EXIT_FAILURE;}
 
-// process_state_parameters(f_number_of_parameters,f_parameters);
+char state_buffer[PARAMETER_SIZE];
 char** state_parameters = (char**)calloc(PARAMETER_SIZE,sizeof(char*));
 state_parameters[0]=(void*)0;
 state_parameters[1]=(void*)0;
 state_parameters[2]=(void*)0;
-state_parameters[3]=(void*)0;
- state_parameters[0] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
- state_parameters[1] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
- state_parameters[2] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
- state_parameters[3] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
-//uint8_t f_number_of_parameters=0;
+state_parameters[0] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
+state_parameters[1] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
+state_parameters[2] = (char*)calloc(PARAMETER_SIZE,sizeof(char));
 state_parameters[0]="set";
 state_parameters[1]="level_zero";
 wgetcwd(state_parameters[2]);
-state_parameters[3]=(void*)0;
-process_state_parameters(3,state_parameters);
+process_state_parameters(state_parameters,state_buffer);
 
 state_parameters[0]="get";
 state_parameters[1]="level_zero";
 state_parameters[2]=(void*)0;
-state_parameters[3]=(void*)0;
-process_state_parameters(2,state_parameters);
-
+process_state_parameters(state_parameters,state_buffer);
+printf("\nstate_buffer: %s\n",state_buffer);
 // f_parameters ==== <set/get> <key> [value]
 
 char* exec_name=parameters[1];
@@ -98,7 +93,7 @@ execute_command(exec_path,parameters,number_of_parameters-1);
 free(state_parameters[0]); 
 free(state_parameters[1]);
 free(state_parameters[2]);
-free(state_parameters[3]);
+free(state_parameters);
 
 return EXIT_FAILURE;
 }
