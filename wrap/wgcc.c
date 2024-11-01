@@ -6,6 +6,8 @@
 
 // ./wgcc <target_file>.c /path/to/level_zero_directory "-Wall -O2"
 
+// ./wgcc ../src/get_json_key_value.c .. "-Wall -O2"
+
 #include <stdio.h>
 #include "../include/compile_with_gcc.h"
 

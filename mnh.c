@@ -46,3 +46,9 @@ execv(exec_path,command);
 perror("failed to execute target_executable");
 return EXIT_FAILURE;
 }
+
+// gcc -o build/wgcc wrap/wgcc.c
+
+// ./build/wgcc src/get_json_key_value.c . "-Wall -O2"
+
+// 
