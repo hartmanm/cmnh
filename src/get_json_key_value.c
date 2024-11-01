@@ -20,7 +20,7 @@ str[len-2]='\0';
 
 int main(int number_of_parameters,char* parameters[]){
 if(number_of_parameters!=3){
-fprintf(stderr,"Usage: %s <json_file> <key>\n",parameters[0]);
+fprintf(stderr,"  %s <json_file> <key>\n",parameters[0]);
 return EXIT_FAILURE;
 }
 const char* json_file=parameters[1];
