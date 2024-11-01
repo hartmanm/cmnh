@@ -7,7 +7,7 @@
 // ./wgcc <target_file>.c /path/to/level_zero_directory "-Wall -O2"
 
 #include <stdio.h>
-#include "compiler.h"
+#include "../include/compile_with_gcc.h"
 
 int main(int number_of_parameters,char* parameters[]){
 if(number_of_parameters<3||number_of_parameters>4){
