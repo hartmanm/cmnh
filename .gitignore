@@ -4,3 +4,5 @@ wrap/wgcc
 src/get_json_key_value
 *json
 src/*json
+new_state_file*
+state*

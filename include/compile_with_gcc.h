@@ -2,13 +2,13 @@
 // mnh_license@proton.me
 // https://github.com/hartmanm
 
-#define DIRECTORY_SIZE 512
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#include "constants.h"
 
 void strip_extension(const char* filename,char* return_buffer){
 const char* base=strrchr(filename,'/');
