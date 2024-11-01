@@ -17,6 +17,8 @@
 #include <sys/stat.h>
 #include <ctype.h>
 
+#include "include/state.h"
+
 int check_executable(const char *path,const char *exec_name){
 struct stat statbuf;
 char exec_path[DIRECTORY_SIZE];
@@ -79,3 +81,9 @@ return EXIT_FAILURE;
 // ./build/get_json_key_value m11.json START
 
 // ./mnh get_json_key_value m11.json START
+
+//
+
+// process_state_parameters(f_number_of_parameters,f_parameters);
+
+// f_parameters ==== <set/get> <key> [value]
